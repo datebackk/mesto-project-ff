@@ -16,7 +16,6 @@ function removeCard(card) {
     card.remove();
 }
 
-
 initialCards.forEach(({name, link}) => {
     createCard(name, link, removeCard);
 })
