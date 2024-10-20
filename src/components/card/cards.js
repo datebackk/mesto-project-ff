@@ -1,8 +1,4 @@
-import {imagePopup} from '../modal/constants/popup';
-
 const cardTemplate = document.querySelector('#card-template').content;
-
-const cardsList = document.querySelector('.places__list');
 
 export function createCard(name, link, removeCb, likeCb, openModalCb) {
     const cardElement = cardTemplate.querySelector('.places__item').cloneNode(true);
@@ -12,7 +8,7 @@ export function createCard(name, link, removeCb, likeCb, openModalCb) {
 
     cardImage.src = link;
     cardImage.alt = name;
-    cardImage.addEventListener('click', () => openModalCb(imagePopup, link, name));
+    cardImage.addEventListener('click', openModalCb);
 
     cardLikeButton.addEventListener('click', () => likeCb(cardLikeButton));
 
@@ -20,14 +16,6 @@ export function createCard(name, link, removeCb, likeCb, openModalCb) {
     cardElement.querySelector('.card__delete-button').addEventListener('click', () => {removeCb(cardElement)});
 
     return cardElement;
-}
-
-export function prependCard(card) {
-    cardsList.prepend(card);
-}
-
-export function appendCard(card) {
-    cardsList.append(card);
 }
 
 export function likeCard(button) {

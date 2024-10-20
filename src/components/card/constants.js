@@ -1,3 +1,5 @@
+export const cardsList = document.querySelector('.places__list');
+
 export const initialCards = [
     {
         name: "Архыз",
