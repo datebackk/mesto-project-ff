@@ -35,8 +35,6 @@ export const clearValidation = (formElement, validationConfig) => {
             validationConfig.inputErrorClass,
             validationConfig.errorClass
         );
-
-        inputElement.setCustomValidity('');
     });
 };
 
@@ -61,6 +59,8 @@ const hideInputError = (
     inputErrorClass,
     errorClass
 ) => {
+    inputElement.setCustomValidity('');
+
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
 
     inputElement.classList.remove(inputErrorClass);

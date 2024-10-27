@@ -11,6 +11,7 @@ import {
 import {cardsList} from './components/card/constants';
 import {editProfile, getInitialInfo, postCard, updateAvatar} from './scripts/api';
 import {clearValidation, enableValidation, validationConfig} from './scripts/validation';
+import {patchSubmitButtonLoadingState} from './scripts/utils';
 
 let currentUserId;
 
@@ -20,20 +21,6 @@ popups.forEach(popup => {
     const closeButton = popup.querySelector('.popup__close');
     closeButton.addEventListener('click', () => closeModal(popup));
 });
-
-const patchSubmitButtonLoadingState = (isLoading, button) => {
-    button.disabled = isLoading;
-
-    if (isLoading) {
-        button.classList.add('popup__button_loading');
-        button.textContent = 'Сохранение...';
-
-        return;
-    }
-
-    button.classList.remove('popup__button_loading');
-    button.textContent = 'Сохранить';
-};
 
 const profileTitle = document.querySelector('.profile__title');
 const profileDescription = document.querySelector('.profile__description');
@@ -122,10 +109,6 @@ const cardNameInput = addCardForm.querySelector('.popup__input_type_card-name');
 const cardImageLinkInput = addCardForm.querySelector('.popup__input_type_url');
 
 addCardButton.addEventListener('click', () => {
-    clearValidation(addCardForm, validationConfig);
-
-    addCardForm.reset();
-
     openModal(addCardPopup);
 });
 addCardForm.addEventListener('submit', addCardFormSubmit);
@@ -151,6 +134,8 @@ function addCardFormSubmit(event) {
             closeModal(addCardPopup);
 
             addCardForm.reset();
+
+            clearValidation(addCardForm, validationConfig);
         })
         .catch(error => {
             console.log(error);
